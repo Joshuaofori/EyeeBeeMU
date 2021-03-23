@@ -25,7 +25,9 @@ OR
 
 ## Step 5 : Run on Android
 
-You should have a button with "Run on Android device/emulator". You can plug you device and run the application on it.  
+Then open : localhost:19002
+You should have a button with "Run on Android device/emulator". You can plug you device and run the application on it. 
+
 
 To configure this project, this tutorial was really usefull :  
 https://reactnative.dev/docs/environment-setup  
