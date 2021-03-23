@@ -8,14 +8,14 @@ You can install NVM (Node Version Manager) for windows here : https://github.com
 ## Step 2 : Install Expo
 
 Then you will be able to install expo with the following :
-> npm install --global expo-cli
+```npm install --global expo-cli```
 See: https://docs.expo.io/get-started/installation/
 
 ## Step 3 : Start the developement server
 
-> npm start
-Or you can also run :
-> npm run android
+```npm start```
+OR
+```npm run android```
 
 ## Step 4 : Run on Android
 
