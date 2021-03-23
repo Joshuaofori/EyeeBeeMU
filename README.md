@@ -6,7 +6,7 @@ First, install Visual Studio Code : https://code.visualstudio.com/Download
 
 ## Step 2 : Update node to latest version  
 
-The needed node version for this project is **v15.12.0**.  
+The needed node version for this project is **v14.16.0**.  
 You can install NVM (Node Version Manager) for windows here : https://github.com/coreybutler/nvm-windows  
 
 ## Step 3 : Install Expo  
