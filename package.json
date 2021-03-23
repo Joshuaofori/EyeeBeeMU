@@ -33,8 +33,10 @@
     "simple-git-hooks": "^2.2.0"
   },
   "private": true,
-  "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
