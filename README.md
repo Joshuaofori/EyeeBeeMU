@@ -33,7 +33,7 @@ You should have a button with "Run on Android device/emulator". You can plug you
 ```npm i```  
 If needed : 
 1. Add the extension "ESLint" from "Dirk Baeumer" in VS Code.  
-2. ```npm i eslint --save-dev```  
+2. ```npm i eslint --save-dev```    
 Then you should be able to run  
 ```npm run lint```  
 
