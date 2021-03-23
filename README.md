@@ -14,7 +14,6 @@ See: https://docs.expo.io/get-started/installation/
 ## Step 3 : Start the developement server
 
 > npm start
-**or**
 > npm run android
 
 ## Step 4 : Run on Android
