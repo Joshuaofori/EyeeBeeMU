@@ -25,7 +25,7 @@ OR
 
 ## Step 5 : Run on Android
 
-Then open : localhost:19002
+Then open : localhost:19002  
 You should have a button with "Run on Android device/emulator". You can plug you device and run the application on it. 
 
 
