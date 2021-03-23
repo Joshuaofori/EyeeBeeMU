@@ -1,5 +1,17 @@
 {
   "main": "node_modules/expo/AppEntry.js",
+  "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -31,17 +43,5 @@
     "eslint-plugin-react-native": "^3.10.0",
     "husky": "^5.2.0",
     "lint-staged": "^10.5.4"
-  },
-  "private": true,
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "eslint --fix",
-      "git add"
-    ]
   }
 }
