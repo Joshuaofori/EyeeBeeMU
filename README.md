@@ -17,7 +17,9 @@ See: https://docs.expo.io/get-started/installation/
 ## Step 4 : Start the developement server
 
 You will probably need to run
-```yarn add expo``` 
+```yarn add expo```  
+If you don't have yarn yet you can install it with :  
+```npm install --global yarn```
 
 ```npm start```  
 OR  
