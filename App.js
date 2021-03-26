@@ -1,21 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
+import { getSession } from './API';
+import MessagingBox from './Components/MessagingBox';
 
 export default function App() {
+  let isLoading = true;
+  const [sessionId, setSessionId] = useState('');
+  useEffect(() => {
+    getSession().then((data) => {
+      setSessionId(data);
+    });
+  }, []);
+  if (sessionId) {
+    isLoading = false;
+  }
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style={{ float: 'auto' }} />
+    <View>
+      {isLoading ? <Text>Loading...</Text>
+        : (
+          <MessagingBox sessionId={sessionId} />
+        )}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
