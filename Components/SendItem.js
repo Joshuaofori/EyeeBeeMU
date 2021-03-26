@@ -2,17 +2,26 @@ import React from 'react';
 import {
   View, TextInput, Button, StyleSheet,
 } from 'react-native';
+import PropTypes from 'prop-types';
+import { postMessage } from '../API';
 
 class SendItem extends React.Component {
   render() {
+    const { sessionId } = this.props;
     return (
       <View style={styles.main_container}>
         <TextInput style={styles.message_container} placeholder="Your message..." />
-        <Button style={styles.send_button} title="Send" onPress={() => {}} />
+        <Button style={styles.send_button} title="Send" onPress={() => sendMessageAndGetResponse('Bonjour', sessionId)} />
       </View>
     );
   }
 }
+
+const sendMessageAndGetResponse = (message, sessionId) => {
+  postMessage(sessionId, message).then((data) => {
+    console.log(data);
+  });
+};
 
 const styles = StyleSheet.create({
   main_container: {
@@ -29,5 +38,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+SendItem.propTypes = {
+  sessionId: PropTypes.string.isRequired,
+};
 
 export default SendItem;
