@@ -8,8 +8,9 @@ function HomeScreen() {
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Home!</Text>
       <Image
+        // eslint-disable-next-line global-require
         source={require('./assets/point.png')}
-        resizeMode='contain'
+        resizeMode="contain"
         style={{ width: 20, height: 20 }}
       />
     </View>
