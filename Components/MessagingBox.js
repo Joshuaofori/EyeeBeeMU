@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import {
-  View, FlatList, RefreshControl,
+  View, FlatList, RefreshControl, StyleSheet,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import MessageItem from './MessageItem';
 import { getSession, delSession } from '../API';
 import SendItem from './SendItem';
@@ -25,18 +26,21 @@ const MessagingBox = (props) => {
     wait(100).then(() => setRefreshing(false));
   }, []);
 
+  const today = new Date();
+  console.log(today);
+
   const addMessage = (id, sender, content, secId, secSender, secContent) => {
     const currentMessage = {
       id,
       sender,
       content,
-      timestamp: ' 24/03/2021 à 19h48',
+      timestamp: moment(today).calendar(),
     };
     const botMessage = {
       id: secId,
       sender: secSender,
       content: secContent,
-      timestamp: ' 24/03/2021 à 19h49',
+      timestamp: moment(today).calendar(),
     };
     const concat = [currentMessage, botMessage];
     setMessages(messages.concat(concat));
@@ -45,6 +49,7 @@ const MessagingBox = (props) => {
   return (
     <View>
       <FlatList
+        style={style.main_container}
         refreshControl={(
           <RefreshControl
             refreshing={refreshing}
@@ -67,5 +72,11 @@ const MessagingBox = (props) => {
 MessagingBox.propTypes = {
   sessionId: PropTypes.string.isRequired,
 };
+
+const style = StyleSheet.create({
+  main_container: {
+    marginBottom: 40,
+  },
+});
 
 export default MessagingBox;

@@ -18,7 +18,6 @@ class MessageItem extends React.Component {
         </View>
         <View>
           <Text style={styles.timestamp}>
-            Envoyé le
             {message.timestamp}
           </Text>
         </View>
