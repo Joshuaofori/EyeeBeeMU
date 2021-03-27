@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import {
+  ScrollView, View, RefreshControl,
+} from 'react-native';
 import { getSession } from './API';
 import MessagingBox from './Components/MessagingBox';
+import AppStatusBar from './Components/AppStatusBar';
+
+const THEME_COLOR = '#006699';
 
 export default function App() {
-  let isLoading = true;
   const [sessionId, setSessionId] = useState('');
+  let isLoading = true;
   useEffect(() => {
     getSession().then((data) => {
       setSessionId(data);
@@ -16,7 +21,15 @@ export default function App() {
   }
   return (
     <View>
-      {isLoading ? <Text>Loading...</Text>
+      <AppStatusBar backgroundColor={THEME_COLOR} barStyle="light-content" />
+      {isLoading ? (
+        <ScrollView refreshControl={(
+          <RefreshControl
+            refreshing
+          />
+          )}
+        />
+      )
         : (
           <MessagingBox sessionId={sessionId} />
         )}
