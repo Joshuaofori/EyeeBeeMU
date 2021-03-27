@@ -2,36 +2,48 @@ import React, { useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 
-const [isModalVisible, setModalVisible] = useState(false);
-
-const Clues = () => (
-  <View style={styles.container}>
-    <Text style={styles.text}>Indice X : ⠨⠺⠠⠻⠠⠹⠠⠫</Text>
-    <View style={styles.y_container}>
-      <Text style={styles.text}>Indice Y : </Text>
-      <Text
-        style={styles.y_text}
-        onLongPress={() => {
-          setModalVisible(true);
-        }}
-      >
-        42
+const Clues = () => {
+  const [isModalVisible, setModalVisible] = useState(false);
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>
+        Vous nous avez fait jouer, maintenant à nous !
+        {'\n'}
+        Tentez de résoudre cette énigme pour parvenir à une petite surprise ;)
+        {'\n'}
       </Text>
-    </View>
-    <Text style={styles.text}>Indice Z : J3M2+M2 🐦 `X`+`Y` km</Text>
-    <Modal
-      style={styles.modal}
-      isVisible={isModalVisible}
-      onBackdropPress={() => setModalVisible(false)}
-    >
-      <View>
-        <Text style={styles.text}>MP</Text>
+      <Text style={styles.text}>Indice X -&gt; ⠨⠺⠠⠻⠠⠹⠠⠫</Text>
+      <View style={styles.y_container}>
+        <Text style={styles.text}>Indice Y -&gt; </Text>
+        <Text
+          style={styles.y_text}
+          onLongPress={() => {
+            setModalVisible(true);
+          }}
+        >
+          42
+        </Text>
       </View>
-    </Modal>
-  </View>
-);
+      <Text style={styles.text}>Indice Z -&gt; J3M2+M2 🐦 `X`+`Y` km</Text>
+      <Modal
+        style={styles.modal}
+        isVisible={isModalVisible}
+        onBackdropPress={() => setModalVisible(false)}
+      >
+        <View>
+          <Text style={styles.text}>MP</Text>
+        </View>
+      </Modal>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 25,
+    textAlign: 'center',
+    color: '#006699',
+  },
   container: {
     alignItems: 'center',
     marginTop: 20,
@@ -45,7 +57,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'black',
     paddingLeft: 2,
-    color: 'white',
+    color: 'transparent',
     fontSize: 20,
   },
   modal: {
