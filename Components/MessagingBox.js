@@ -22,7 +22,7 @@ const MessagingBox = (props) => {
     getSession().then((data) => {
       setNewSessionId(data);
     });
-    wait(2000).then(() => setRefreshing(false));
+    wait(100).then(() => setRefreshing(false));
   }, []);
 
   const addMessage = (id, sender, content, secId, secSender, secContent) => {

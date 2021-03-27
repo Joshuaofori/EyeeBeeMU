@@ -7,7 +7,7 @@ import ConfettiCannon from 'react-native-confetti-cannon';
 import { postMessage } from '../API';
 
 let increment = 0;
-let nextincrement = 1;
+let nextIncrement = 1;
 let first = true;
 
 const SendItem = (props) => {
@@ -17,15 +17,18 @@ const SendItem = (props) => {
   const sendMessageAndGetResponse = (message) => {
     const { sessionId, addMessage } = props;
     postMessage(sessionId, message).then((data) => {
-      addMessage(increment, 'hooman', message, nextincrement, 'bot', data);
+      addMessage(increment, 'hooman', message, nextIncrement, 'bot', data);
       setFound(false);
       if (data === 'Toutes mes félicitations! Vous avez trouvé la solution! Vous êtes vraiment très forts. Quel est le nom de votre équipe pour enregistrer votre résultat?') {
         setFound(true);
+        setTimeout(() => {
+          setFound(false);
+        }, 4000);
       }
     });
     setInputMessage('');
     increment += 2;
-    nextincrement += 2;
+    nextIncrement += 2;
   };
 
   if (first) {
@@ -42,9 +45,15 @@ const SendItem = (props) => {
         placeholder="Votre message"
       />
       <Button style={styles.send_button} title="Send" onPress={() => sendMessageAndGetResponse(inputMessage)} />
-      {hasFound ? (
-        <ConfettiCannon count={200} origin={{ x: -10, y: 0 }} hasFound={hasFound} />
-      ) : null}
+      {hasFound && (
+        <ConfettiCannon
+          count={200}
+          origin={{ x: -10, y: 0 }}
+          explosionSpeed={0}
+          fallSpeed={3000}
+          fadeOut
+        />
+      )}
     </View>
   );
 };
