@@ -7,13 +7,15 @@ import Algorithm from './algorithm/Algorithm';
 export default function App() {
   // console.log(Algorithm.converToBAse(336546));
   // console.log(Algorithm.covertToAscii('https://pasteboard.co/074 065 051 049 084 077 048 046 112 110 103/'));
-
+  // Algorithm.decodeImage();
+  console.log(Algorithm.fetchLink('https://eqrcode.co/a/RL7uJn'));
   return (
     <View style={styles.container}>
       <Text>
         Open up App.js to start working on your app!
         {Algorithm.converToBAse(336546)}
         {Algorithm.covertToAscii('https://pasteboard.co/074 065 051 049 084 077 048 046 112 110 103/')}
+        {Algorithm.findPassword(336546, 'https://eqrcode.co/a/RL7uJn')}
       </Text>
       <StatusBar style={{ float: 'auto' }} />
     </View>
