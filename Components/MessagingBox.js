@@ -1,14 +1,29 @@
 import React, { useState } from 'react';
 import {
-  View, FlatList,
+  View, FlatList, RefreshControl,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import MessageItem from './MessageItem';
+import { getSession, delSession } from '../API';
 import SendItem from './SendItem';
+
+const wait = (timeout) => new Promise((resolve) => setTimeout(resolve, timeout));
 
 const MessagingBox = (props) => {
   const [messages, setMessages] = useState([]);
   const { sessionId } = props;
+  const [newSessionId, setNewSessionId] = useState('');
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    delSession(newSessionId);
+    getSession().then((data) => {
+      setNewSessionId(data);
+    });
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   const addMessage = (id, sender, content, secId, secSender, secContent) => {
     const currentMessage = {
@@ -30,11 +45,21 @@ const MessagingBox = (props) => {
   return (
     <View>
       <FlatList
+        refreshControl={(
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        )}
         data={messages}
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => <MessageItem message={item} />}
       />
-      <SendItem sessionId={sessionId} addMessage={addMessage} />
+      {newSessionId === '' ? (
+        <SendItem sessionId={sessionId} addMessage={addMessage} />
+      ) : (
+        <SendItem sessionId={newSessionId} addMessage={addMessage} />
+      )}
     </View>
   );
 };
