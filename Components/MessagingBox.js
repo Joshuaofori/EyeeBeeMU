@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  View, FlatList, RefreshControl,
+  View, FlatList, RefreshControl, ScrollView,
 } from 'react-native';
-import PropTypes from 'prop-types';
 import MessageItem from './MessageItem';
 import { getSession, delSession } from '../API';
 import SendItem from './SendItem';
 
 const wait = (timeout) => new Promise((resolve) => setTimeout(resolve, timeout));
 
-const MessagingBox = (props) => {
+const MessagingBox = () => {
   const [messages, setMessages] = useState([]);
-  const { sessionId } = props;
   const [newSessionId, setNewSessionId] = useState('');
-
   const [refreshing, setRefreshing] = React.useState(false);
+  const [sessionId, setSessionId] = useState('');
+
+  let isLoading = true;
+  useEffect(() => {
+    getSession().then((data) => {
+      setSessionId(data);
+    });
+  }, []);
+  if (sessionId) {
+    isLoading = false;
+  }
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -44,28 +52,37 @@ const MessagingBox = (props) => {
 
   return (
     <View>
-      <FlatList
-        refreshControl={(
+      {isLoading ? (
+        <ScrollView refreshControl={(
           <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
+            refreshing
           />
+          )}
+        />
+      )
+        : (
+          <View>
+            <FlatList
+              refreshControl={(
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={onRefresh}
+                />
         )}
-        data={messages}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => <MessageItem message={item} />}
-      />
-      {newSessionId === '' ? (
-        <SendItem sessionId={sessionId} addMessage={addMessage} />
-      ) : (
-        <SendItem sessionId={newSessionId} addMessage={addMessage} />
-      )}
+              data={messages}
+              keyExtractor={(item) => String(item.id)}
+              renderItem={({ item }) => <MessageItem message={item} />}
+            />
+            {newSessionId === '' ? (
+              <SendItem sessionId={sessionId} addMessage={addMessage} />
+            ) : (
+              <SendItem sessionId={newSessionId} addMessage={addMessage} />
+            )}
+          </View>
+        )}
+
     </View>
   );
-};
-
-MessagingBox.propTypes = {
-  sessionId: PropTypes.string.isRequired,
 };
 
 export default MessagingBox;
