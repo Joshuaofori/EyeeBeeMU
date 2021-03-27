@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View, TextInput, Button, StyleSheet,
 } from 'react-native';
@@ -6,44 +6,48 @@ import PropTypes from 'prop-types';
 import ConfettiCannon from 'react-native-confetti-cannon';
 import { postMessage } from '../API';
 
-let inputMessage;
+let increment = 0;
+let nextincrement = 1;
+let first = true;
 
-class SendItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hasFound: false,
-    };
-  }
+const SendItem = (props) => {
+  const [inputMessage, setInputMessage] = useState('');
+  const [hasFound, setFound] = useState(false);
 
-  setInputMessage = (text) => {
-    inputMessage = text;
-  }
-
-  sendMessageAndGetResponse = (message, sessionId) => {
+  const sendMessageAndGetResponse = (message) => {
+    const { sessionId, addMessage } = props;
     postMessage(sessionId, message).then((data) => {
-      console.log(data);
-      this.setState({ hasFound: false });
+      addMessage(increment, 'hooman', message, nextincrement, 'bot', data);
+      setFound(false);
       if (data === 'Toutes mes félicitations! Vous avez trouvé la solution! Vous êtes vraiment très forts. Quel est le nom de votre équipe pour enregistrer votre résultat?') {
-        this.setState({ hasFound: true });
+        setFound(true);
       }
     });
+    setInputMessage('');
+    increment += 2;
+    nextincrement += 2;
   };
 
-  render() {
-    const { sessionId } = this.props;
-    const { state } = this;
-    return (
-      <View style={styles.main_container}>
-        <TextInput style={styles.message_container} placeholder="Your message..." onChangeText={(text) => this.setInputMessage(text)} />
-        <Button style={styles.send_button} title="Send" onPress={() => this.sendMessageAndGetResponse(inputMessage, sessionId)} />
-        {state.hasFound && (
-          <ConfettiCannon count={200} origin={{ x: -10, y: 0 }} />
-        )}
-      </View>
-    );
+  if (first) {
+    sendMessageAndGetResponse('Bonjour');
+    first = false;
   }
-}
+  return (
+    <View style={styles.main_container}>
+      <TextInput
+        type="messageInput"
+        style={styles.message_container}
+        value={inputMessage}
+        onChangeText={(value) => setInputMessage(value)}
+        placeholder="Votre message"
+      />
+      <Button style={styles.send_button} title="Send" onPress={() => sendMessageAndGetResponse(inputMessage)} />
+      {hasFound ? (
+        <ConfettiCannon count={200} origin={{ x: -10, y: 0 }} hasFound={hasFound} />
+      ) : null}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   main_container: {
@@ -63,6 +67,7 @@ const styles = StyleSheet.create({
 
 SendItem.propTypes = {
   sessionId: PropTypes.string.isRequired,
+  addMessage: PropTypes.func.isRequired,
 };
 
 export default SendItem;
