@@ -5,16 +5,22 @@ import {
 import PropTypes from 'prop-types';
 import { postMessage } from '../API';
 
+let inputMessage;
+
 class SendItem extends React.Component {
-  render() {
-    const { sessionId } = this.props;
-    return (
-      <View style={styles.main_container}>
-        <TextInput style={styles.message_container} placeholder="Your message..." />
-        <Button style={styles.send_button} title="Send" onPress={() => sendMessageAndGetResponse('Bonjour', sessionId)} />
-      </View>
-    );
-  }
+ setInputMessage = (text) => {
+   inputMessage = text;
+ }
+
+ render() {
+   const { sessionId } = this.props;
+   return (
+     <View style={styles.main_container}>
+       <TextInput style={styles.message_container} placeholder="Your message..." onChangeText={(text) => this.setInputMessage(text)} />
+       <Button style={styles.send_button} title="Send" onPress={() => sendMessageAndGetResponse(inputMessage, sessionId)} />
+     </View>
+   );
+ }
 }
 
 const sendMessageAndGetResponse = (message, sessionId) => {
