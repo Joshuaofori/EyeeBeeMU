@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 const fetch = require('node-fetch');
-var StringDecoder = require('string_decoder').StringDecoder;
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -34,8 +34,9 @@ var found='';
   });
   readStream.on('end',function() {
     console.log(found);
+    const number = found.substring(0,7).replace(/\s/g, '');
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify({ value: found }));
+    res.end(JSON.stringify({ value: number }));
  });
   
 })
