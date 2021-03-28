@@ -17,11 +17,11 @@ const Mystery = () => {
           title="Botman Pierre"
         />
         <Button
-          onPress={() => setUrl('https://firebasestorage.googleapis.com/v0/b/hackathon-ibm-f05ae.appspot.com/o/CV_Botman_Pierre.pdf?alt=media&token=708b2118-f10a-494a-b65e-1b7cffdff97d')}
+          onPress={() => setUrl('https://firebasestorage.googleapis.com/v0/b/hackathon-ibm-f05ae.appspot.com/o/DUPARCQ_HAKIM_CV_2020.pdf?alt=media&token=6fdb31ff-f114-4325-b2e7-792bbfe61ff1')}
           title="Duparcq Hakim"
         />
         <Button
-          onPress={() => setUrl('https://firebasestorage.googleapis.com/v0/b/hackathon-ibm-f05ae.appspot.com/o/CV_Botman_Pierre.pdf?alt=media&token=708b2118-f10a-494a-b65e-1b7cffdff97d')}
+          onPress={() => setUrl('https://firebasestorage.googleapis.com/v0/b/hackathon-ibm-f05ae.appspot.com/o/Joshua_Ofori_6.pdf?alt=media&token=1282d8c7-77fb-4355-9d98-2c400a0f744a')}
           title="Ofori Joshua"
         />
         <Button
