@@ -1,10 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MessagingBox from './Components/MessagingBox';
-import AppStatusBar from './Components/AppStatusBar';
-import Clues from './Components/Clues';
-import PasswordChecker from './Components/PasswordChecker';
+import {
+  MessagingBox, AppStatusBar, Clues, PasswordChecker,
+} from './Components';
 
 const THEME_COLOR = '#006699';
 const Tab = createBottomTabNavigator();
