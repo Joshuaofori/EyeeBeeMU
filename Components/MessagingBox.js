@@ -12,7 +12,7 @@ const wait = (timeout) => new Promise((resolve) => setTimeout(resolve, timeout))
 const MessagingBox = () => {
   const [messages, setMessages] = useState([]);
   const [newSessionId, setNewSessionId] = useState('');
-  const [refreshing, setRefreshing] = React.useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [sessionId, setSessionId] = useState('');
 
   let isLoading = true;

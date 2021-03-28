@@ -25,7 +25,7 @@ const Mystery = () => {
           title="Ofori Joshua"
         />
         <Button
-          onPress={() => setUrl('https://firebasestorage.googleapis.com/v0/b/hackathon-ibm-f05ae.appspot.com/o/CV_Botman_Pierre.pdf?alt=media&token=708b2118-f10a-494a-b65e-1b7cffdff97d')}
+          onPress={() => setUrl('https://firebasestorage.googleapis.com/v0/b/hackathon-ibm-f05ae.appspot.com/o/Resume_VERVISCH_LOIC_.pdf?alt=media&token=de3d0615-6fd0-4ab5-8943-613cd0c3aa00')}
           title="Vervisch Loïc"
         />
         <Button

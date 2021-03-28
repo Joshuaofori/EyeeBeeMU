@@ -25,7 +25,8 @@ const PasswordChecker = () => {
             borderColor: 'black',
           }}
           inputViewFilledStyle={{
-            backgroundColor: 'black',
+            size: 10,
+            backgroundColor: '#006699',
           }}
           buttonViewStyle={{
             borderWidth: 1,
@@ -39,13 +40,14 @@ const PasswordChecker = () => {
               pinView.current.clear();
             }
             if (key === 'custom_right') {
-              if (parseInt(enteredPin, 10) === (2 * (100000000000000 / 1000000000000))) {
+              if (parseInt(enteredPin, 10) === (2 * (100000000000000 / 1000000000000))
+              || parseInt(enteredPin, 10) === (16 * (1200000000000000 / 100000000000000) + 9)) {
                 setHasFound(true);
               }
             }
           }}
-          customLeftButton={<Icon name="close-circle-outline" style={styles.left_icon} size={65} color="#FFF" />}
-          customRightButton={<Icon name="checkmark-circle-outline" style={styles.right_icon} size={65} color="#FFF" />}
+          customLeftButton={<Icon name="close-circle-outline" size={65} color="#006699" />}
+          customRightButton={<Icon name="checkmark-circle-outline" size={65} color="#006699" />}
         />
       )}
     </View>
@@ -58,12 +60,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  left_icon: {
-    color: 'red',
-  },
-  right_icon: {
-    color: 'green',
   },
 });
 
