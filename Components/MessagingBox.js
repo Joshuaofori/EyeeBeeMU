@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View, FlatList, RefreshControl, ScrollView,
+  View, FlatList, RefreshControl, StyleSheet,
 } from 'react-native';
+import moment from 'moment';
 import MessageItem from './MessageItem';
 import { getSession, delSession } from '../API';
 import SendItem from './SendItem';
@@ -34,17 +35,18 @@ const MessagingBox = () => {
   }, []);
 
   const addMessage = (id, sender, content, secId, secSender, secContent) => {
+    const today = new Date();
     const currentMessage = {
       id,
       sender,
       content,
-      timestamp: ' 24/03/2021 à 19h48',
+      timestamp: moment(today).calendar(),
     };
     const botMessage = {
       id: secId,
       sender: secSender,
       content: secContent,
-      timestamp: ' 24/03/2021 à 19h49',
+      timestamp: moment(today).calendar(),
     };
     const concat = [currentMessage, botMessage];
     setMessages(messages.concat(concat));
@@ -53,10 +55,13 @@ const MessagingBox = () => {
   return (
     <View>
       {isLoading ? (
-        <ScrollView refreshControl={(
-          <RefreshControl
-            refreshing
-          />
+        <FlatList
+        // inverted={-1}
+          style={style.main_container}
+          refreshControl={(
+            <RefreshControl
+              refreshing
+            />
           )}
         />
       )
@@ -84,5 +89,11 @@ const MessagingBox = () => {
     </View>
   );
 };
+
+const style = StyleSheet.create({
+  main_container: {
+    marginBottom: 40,
+  },
+});
 
 export default MessagingBox;
