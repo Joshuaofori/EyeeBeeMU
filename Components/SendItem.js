@@ -38,7 +38,6 @@ const SendItem = (props) => {
   return (
     <View style={styles.main_container}>
       <TextInput
-        type="messageInput"
         style={styles.message_container}
         value={inputMessage}
         onChangeText={(value) => setInputMessage(value)}
