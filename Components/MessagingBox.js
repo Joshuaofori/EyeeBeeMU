@@ -26,10 +26,8 @@ const MessagingBox = (props) => {
     wait(100).then(() => setRefreshing(false));
   }, []);
 
-  const today = new Date();
-  console.log(today);
-
   const addMessage = (id, sender, content, secId, secSender, secContent) => {
+    const today = new Date();
     const currentMessage = {
       id,
       sender,
