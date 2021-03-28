@@ -33,7 +33,6 @@ export default function App() {
         : (
           <MessagingBox sessionId={sessionId} />
         )}
-      <View />
     </View>
   );
 }

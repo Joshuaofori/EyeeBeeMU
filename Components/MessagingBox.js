@@ -47,6 +47,7 @@ const MessagingBox = (props) => {
   return (
     <View>
       <FlatList
+        // inverted={-1}
         style={style.main_container}
         refreshControl={(
           <RefreshControl
@@ -55,6 +56,7 @@ const MessagingBox = (props) => {
           />
         )}
         data={messages}
+        // data={messages.reverse()}
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => <MessageItem message={item} />}
       />

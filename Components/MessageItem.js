@@ -12,9 +12,7 @@ class MessageItem extends React.Component {
     let compo2;
     const timeout = 'Mes alternateurs sont épuisés... Je vous conseille de me recharger en réinitialisant la session!';
     if (message.sender === 'bot') {
-      console.log(message.content);
       if (message.content === undefined) {
-        console.log('yhea');
         compo1 = <Text style={styles.botmessage}>{timeout}</Text>;
         compo2 = (
           <Icon
