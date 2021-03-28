@@ -6,3 +6,4 @@ export { default as Mystery } from './Mystery';
 export { default as MysteryPDF } from './MysteryPDF';
 export { default as PasswordChecker } from './PasswordChecker';
 export { default as SendItem } from './SendItem';
+export { default as BottomNav } from './BottomNav';
