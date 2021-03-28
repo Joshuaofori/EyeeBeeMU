@@ -56,8 +56,7 @@ const MessagingBox = () => {
     <View>
       {isLoading ? (
         <FlatList
-        // inverted={-1}
-          style={style.main_container}
+          style={style.message_container}
           refreshControl={(
             <RefreshControl
               refreshing
@@ -66,8 +65,11 @@ const MessagingBox = () => {
         />
       )
         : (
-          <View>
+          <View
+            style={style.main_container}
+          >
             <FlatList
+              style={style.message_container}
               refreshControl={(
                 <RefreshControl
                   refreshing={refreshing}
@@ -91,8 +93,11 @@ const MessagingBox = () => {
 };
 
 const style = StyleSheet.create({
-  main_container: {
+  message_container: {
     marginBottom: 40,
+  },
+  main_container: {
+    bottom: 0,
   },
 });
 

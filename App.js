@@ -13,11 +13,11 @@ function MyTabs() {
   return (
     <Tab.Navigator
       initialRouteName="Feed"
-      activeColor="#000000" // couleur text cliqué black
-      inactiveColor="#3e2FFF"
+      activeColor="#fff" // couleur text cliqué black
+      inactiveColor="#006699"
       labelStyle={{ fontSize: 12 }}
       style={{ backgroundColor: '#000000' }} // ?
-      barStyle={{ backgroundColor: '#694fad', paddingBottom: 0 }} // couleur barre, remonter barre 0 pixels
+      barStyle={{ backgroundColor: '#006699', paddingBottom: 0 }} // couleur barre, remonter barre 0 pixels
     >
       <Tab.Screen
         name="Feed"
