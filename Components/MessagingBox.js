@@ -56,7 +56,7 @@ const MessagingBox = () => {
   };
 
   return (
-    <View>
+    <View style={style.main}>
       {isLoading ? (
         <FlatList
           style={style.main_container}
@@ -68,7 +68,7 @@ const MessagingBox = () => {
         />
       )
         : (
-          <View>
+          <View style={style.main}>
             <FlatList
               style={style.main_container}
               ref={flatlistRef}
@@ -83,7 +83,7 @@ const MessagingBox = () => {
               keyExtractor={(item) => String(item.id)}
               renderItem={({ item }) => <MessageItem message={item} />}
             />
-            <SendItem sessionId={sessionId} addMessage={addMessage} />
+            <SendItem style={style.send_item} sessionId={sessionId} addMessage={addMessage} />
           </View>
         )}
 
@@ -92,8 +92,15 @@ const MessagingBox = () => {
 };
 
 const style = StyleSheet.create({
+  main: {
+    width: '100%',
+    height: '100%',
+  },
   main_container: {
     marginBottom: 40,
+  },
+  send_item: {
+    justifyContent: 'flex-end',
   },
 });
 
