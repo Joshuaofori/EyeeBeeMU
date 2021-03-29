@@ -35,6 +35,21 @@ class MessageItem extends React.Component {
           />
         );
       }
+    } else if (message.id === 2) {
+      compo1 = (
+        <Text style={styles.botmessage}>
+          Oh ! Vous êtes là!
+        </Text>
+      );
+      compo2 = (
+        <Icon
+          name="robot"
+          color="#00aaff"
+          size={50}
+          style={styles.image}
+          source={{ uri: 'image' }}
+        />
+      );
     } else {
       compo1 = (
         <Icon
