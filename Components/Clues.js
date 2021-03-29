@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
   text: {
     lineHeight: 50,
     fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 

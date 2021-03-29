@@ -80,7 +80,7 @@ class MessageItem extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
-    marginTop: 25,
+    marginTop: 15,
     flexDirection: 'column',
   },
   message_and_avatar_container: {
