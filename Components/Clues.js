@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import {
-  Text, View, StyleSheet, TextInput,
+  Text, View, StyleSheet, TextInput, ScrollView,
 } from 'react-native';
 import Modal from 'react-native-modal';
 
 const Clues = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>
         Il semble que l&apos;application propose une &eacute;nigme !
         {'\n'}
@@ -61,7 +61,7 @@ const Clues = () => {
           <Text style={styles.text}>MP Paris</Text>
         </View>
       </Modal>
-    </View>
+    </ScrollView>
   );
 };
 

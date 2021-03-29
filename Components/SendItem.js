@@ -41,9 +41,10 @@ const SendItem = (props) => {
         style={styles.message_container}
         value={inputMessage}
         onChangeText={(value) => setInputMessage(value)}
+        onSubmitEditing={() => sendMessageAndGetResponse(inputMessage)}
         placeholder="Votre message"
       />
-      <Button style={styles.send_button} color="#006699" title="Send" onPress={() => sendMessageAndGetResponse(inputMessage)} />
+      <Button style={styles.send_button} color="#006699" title="Envoyer" onPress={() => sendMessageAndGetResponse(inputMessage)} />
       {hasFound && (
         <ConfettiCannon
           count={200}
