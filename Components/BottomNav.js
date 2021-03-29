@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MessagingBox from './MessagingBox';
 import PasswordChecker from './PasswordChecker';
 import Clues from './Clues';
@@ -10,7 +10,7 @@ import Resolver from './Resolver';
 const BACKGROUND_COLOR = '#FFF';
 const ACTIVE_COLOR = '#006699';
 const INACTIVE_COLOR = '#bababa';
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 const BottomNav = () => (
   <Tab.Navigator
@@ -60,7 +60,6 @@ const BottomNav = () => (
       }}
     />
   </Tab.Navigator>
-
 );
 
 export default BottomNav;

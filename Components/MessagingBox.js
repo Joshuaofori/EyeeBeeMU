@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {
+  useState, useEffect, useCallback, useRef,
+} from 'react';
 import {
   View, FlatList, RefreshControl, StyleSheet,
 } from 'react-native';
@@ -10,6 +12,7 @@ import SendItem from './SendItem';
 const wait = (timeout) => new Promise((resolve) => setTimeout(resolve, timeout));
 
 const MessagingBox = () => {
+  const flatlistRef = useRef();
   const [messages, setMessages] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [sessionId, setSessionId] = useState('');
@@ -67,12 +70,14 @@ const MessagingBox = () => {
         : (
           <View>
             <FlatList
+              ref={flatlistRef}
+              onContentSizeChange={() => flatlistRef.current.scrollToEnd({ animated: true })}
               refreshControl={(
                 <RefreshControl
                   refreshing={refreshing}
                   onRefresh={onRefresh}
                 />
-        )}
+              )}
               data={messages}
               keyExtractor={(item) => String(item.id)}
               renderItem={({ item }) => <MessageItem message={item} />}
