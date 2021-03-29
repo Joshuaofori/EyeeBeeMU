@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState, useEffect, useRef,
+} from 'react';
 import {
   StyleSheet, View,
 } from 'react-native';
@@ -11,10 +13,19 @@ const heightProportion = '100%';
 const MysteryPDF = (props) => {
   const [renderedOnce, setRenderedOnce] = useState(false);
   const { url } = props;
+  const prevUrl = usePrevious(url);
+  let timer;
+
+  useEffect(() => () => {
+    clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
-    setRenderedOnce(true);
-  }, []);
+    if (prevUrl !== url) {
+      setRenderedOnce(false);
+      timer = setTimeout(() => { setRenderedOnce(true); }, 100);
+    }
+  });
 
   return (
     <View style={styles.container}>
@@ -26,6 +37,14 @@ const MysteryPDF = (props) => {
       )}
     </View>
   );
+};
+
+const usePrevious = (value) => {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
 };
 
 const styles = StyleSheet.create({

@@ -68,6 +68,7 @@ const MessagingBox = () => {
         : (
           <View>
             <FlatList
+              style={style.main_container}
               ref={flatlistRef}
               onContentSizeChange={() => flatlistRef.current.scrollToEnd({ animated: true })}
               refreshControl={(
