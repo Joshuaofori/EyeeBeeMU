@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var Jimp = require('jimp');
-var qrCode = require('qrcode-reader');
 var DomParser = require('dom-parser');
 const fetch = require('node-fetch');
 const puppeteer = require('puppeteer-extra');
+var qrCode = require('qrcode-reader');
 require('dotenv').config();
 // Add stealth plugin and use defaults (all tricks to hide puppeteer usage)
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
@@ -13,8 +13,7 @@ puppeteer.use(StealthPlugin())
 
 // Add adblocker plugin to block all ads and trackers (saves bandwidth)
 const AdblockerPlugin = require('puppeteer-extra-plugin-adblocker')
-puppeteer.use(AdblockerPlugin({ blockTrackers: true }))
-
+puppeteer.use(AdblockerPlugin({ blockTrackers: true }));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -50,10 +49,11 @@ var found='';
  });
 })
 router.get('/decodeimage',function(req,res){
+  url = req.query.url;
 puppeteer.launch({ headless: true }).then(async browser => {
   const page = await browser.newPage()
   await page.setViewport({ width: 640, height: 480 ,deviceScaleFactor: 1,})
-  await page.goto('https://pasteboard.co/JA31TM0.png')
+  await page.goto(url)
   await page.screenshot({ path: './files/image.png', fullPage: false })
   console.log(`All done, check the screenshots.`)
   await browser.close()
@@ -62,34 +62,38 @@ puppeteer.launch({ headless: true }).then(async browser => {
     if (err) {
         console.error(err);
     }
-    // Creating an instance of qrcode-reader module
-    let qrcode = new qrCode();
-    qrcode.callback = function(err, value) {
-      console.log("here");
-        if (err) {
-            console.error(err);
-        }
-        // Printing the decrypted value
-        console.log(value.result);
-res.setHeader('Content-Type', 'application/json');
-res.send(JSON.stringify({ value: value.result }));
-         // Decoding the QR code
-    };
+
+ // Creating an instance of qrcode-reader module
+ let qrcode = new qrCode();
+ qrcode.callback = function(err, value) {
+     if (err) {
+         console.error(err);
+     }
+     // Printing the decrypted value
+     console.log(value.result);
+     res.send(JSON.stringify({ value: value.result }));
+ };
+ // Decoding the QR code
+ qrcode.decode(image.bitmap);
+
    
 });
 });
 });
    
   router.get('/location',function(req,res){
-    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=J3M2+M2 Lille&key='+process.env.API)
+    var address= req.query.address;
+    var url ='https://maps.googleapis.com/maps/api/geocode/json?'+address+'=J3M2+M2 Lille&key='+process.env.API;
+    fetch(url)
     .then(res => res.json())
     .then(json => {
       res.send(json);
     });
   })
 router.get('/linkvalue',function(req,res){
+  var url = req.query.url;
 var parser = new DomParser();
-   fetch('https://eqrcode.co/a/RL7uJn')
+   fetch(url)
     .then(res => res.text())
     .then(body => {
     var dom = parser.parseFromString(body,'text/html');
