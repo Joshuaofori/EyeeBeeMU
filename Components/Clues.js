@@ -12,7 +12,7 @@ const Clues = () => {
         Tentez de résoudre cette énigme pour parvenir à une petite surprise ;)
         {'\n'}
       </Text>
-      <Text style={styles.text}>Indice X -&gt; ⠨⠺⠠⠻⠠⠹⠠⠫</Text>
+      <Text style={styles.text}>Indice X -&gt; .-- --... ....- -....</Text>
       <View style={styles.y_container}>
         <Text style={styles.text}>Indice Y -&gt; </Text>
         <Text

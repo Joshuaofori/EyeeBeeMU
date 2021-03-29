@@ -5,7 +5,6 @@ import {
 } from './Components';
 
 const THEME_COLOR = '#006699';
-
 export default function App() {
   return (
     <NavigationContainer>
