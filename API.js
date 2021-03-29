@@ -1,9 +1,10 @@
-const url = 'https://nodejs-express-app-cxlkb-2020-11-30.eu-gb.mybluemix.net/ai';
+const IBMUrl = 'https://nodejs-express-app-cxlkb-2020-11-30.eu-gb.mybluemix.net/ai';
+const heroku = 'https://ibmuserver.herokuapp.com';
 
 export const getSession = async () => {
   try {
     const resp = await fetch(
-      `${url}/session`,
+      `${IBMUrl}/session`,
     );
     const json = await resp.json();
     return json.response;
@@ -16,7 +17,7 @@ export const getSession = async () => {
 export const postMessage = async (session, message) => {
   try {
     const resp = await fetch(
-      url, {
+      IBMUrl, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -38,7 +39,7 @@ export const postMessage = async (session, message) => {
 
 export const delSession = async (session) => {
   try {
-    const resp = await fetch(`${url}/session`, {
+    const resp = await fetch(`${IBMUrl}/session`, {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
@@ -50,6 +51,19 @@ export const delSession = async (session) => {
     });
     const json = await resp.json();
     return json.response;
+  } catch (error) {
+    console.error(error);
+  }
+  return false;
+};
+
+export const getPiNumber = async (piDecimals) => {
+  try {
+    const resp = await fetch(
+      `${heroku}/pinumber/?searchnext=${piDecimals}`,
+    );
+    const json = await resp.json();
+    return json.value;
   } catch (error) {
     console.error(error);
   }

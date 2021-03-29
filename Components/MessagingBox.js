@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View, FlatList, RefreshControl, StyleSheet,
 } from 'react-native';
@@ -11,7 +11,6 @@ const wait = (timeout) => new Promise((resolve) => setTimeout(resolve, timeout))
 
 const MessagingBox = () => {
   const [messages, setMessages] = useState([]);
-  const [newSessionId, setNewSessionId] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const [sessionId, setSessionId] = useState('');
 
@@ -21,15 +20,16 @@ const MessagingBox = () => {
       setSessionId(data);
     });
   }, []);
+
   if (sessionId) {
     isLoading = false;
   }
 
-  const onRefresh = React.useCallback(() => {
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
-    delSession(newSessionId);
+    delSession(sessionId);
     getSession().then((data) => {
-      setNewSessionId(data);
+      setSessionId(data);
     });
     wait(100).then(() => setRefreshing(false));
   }, []);
@@ -56,7 +56,6 @@ const MessagingBox = () => {
     <View>
       {isLoading ? (
         <FlatList
-        // inverted={-1}
           style={style.main_container}
           refreshControl={(
             <RefreshControl
@@ -78,11 +77,7 @@ const MessagingBox = () => {
               keyExtractor={(item) => String(item.id)}
               renderItem={({ item }) => <MessageItem message={item} />}
             />
-            {newSessionId === '' ? (
-              <SendItem sessionId={sessionId} addMessage={addMessage} />
-            ) : (
-              <SendItem sessionId={newSessionId} addMessage={addMessage} />
-            )}
+            <SendItem sessionId={sessionId} addMessage={addMessage} />
           </View>
         )}
 

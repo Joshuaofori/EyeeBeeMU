@@ -5,6 +5,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MessagingBox from './MessagingBox';
 import PasswordChecker from './PasswordChecker';
 import Clues from './Clues';
+import Resolver from './Resolver';
 
 const BACKGROUND_COLOR = '#FFF';
 const ACTIVE_COLOR = '#006699';
@@ -30,7 +31,7 @@ const BottomNav = () => (
     />
     <Tab.Screen
       name="Enigme IBM"
-      component={PasswordChecker}
+      component={Resolver}
       options={{
         tabBarLabel: 'Enigme IBM',
         tabBarIcon: ({ color }) => (
