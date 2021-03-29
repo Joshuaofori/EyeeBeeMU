@@ -13,6 +13,7 @@
     "@babel/core": "^7.13.13",
     "@react-navigation/bottom-tabs": "^5.11.8",
     "@react-navigation/native": "^5.9.3",
+    "dom-parser": "^0.1.6",
     "expo": "^40.0.1",
     "expo-constants": "^9.3.3",
     "expo-file-system": "^9.3.0",

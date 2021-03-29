@@ -3,6 +3,7 @@ import {
   Text, View, StyleSheet, Button, ScrollView,
 } from 'react-native';
 import { getPiNumber } from '../API';
+import { resolveX } from '../algorithm/Algorithm';
 
 const Resolver = () => {
   const [valueX, setValueX] = useState('Résoudre X');
@@ -86,17 +87,6 @@ const Resolver = () => {
       </ScrollView>
     </View>
   );
-};
-
-const resolveX = (nextDecimals) => {
-  let result = '';
-  let quotient = nextDecimals;
-  while (quotient >= 1) {
-    const remainder = quotient % 26;
-    quotient = Math.floor(quotient / 26);
-    result += remainder.toString(26).toUpperCase();
-  }
-  return result.split('').reverse().join('');
 };
 
 const resolveY = () => {
