@@ -2,19 +2,25 @@ import React, { useState, useEffect } from 'react';
 import {
   Text, View, StyleSheet, Button, ScrollView,
 } from 'react-native';
+import { Marker } from 'react-native-maps';
+import { ClusterMap } from 'react-native-cluster-map';
+import Modal from 'react-native-modal';
 import { getPiNumber } from '../API';
-import { resolveX } from '../algorithm/Algorithm';
+import {
+  resolveX, resolveY, resolveZ,
+} from '../algorithm/Algorithm';
 
 const Resolver = () => {
   const [valueX, setValueX] = useState('Résoudre X');
   const [disableX, setDisableX] = useState(false);
   const [valueY, setValueY] = useState('Résoudre Y');
-  const [disableY, setDisableY] = useState(true);
+  const [disableY, setDisableY] = useState(false);
   const [valueZ, setValueZ] = useState('Résoudre Z');
-  const [disableZ, setDisableZ] = useState(true);
-  const [valueXYZ, setValueXYZ] = useState('Afficher');
-  const [disableXYZ, setDisableXYZ] = useState(true);
+  const [disableZ, setDisableZ] = useState(false);
+
   const [nextDecimals, setNextDecimals] = useState(0);
+
+  const [isModalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     getPiNumber('036695').then((data) => {
@@ -76,26 +82,31 @@ const Resolver = () => {
         </Text>
         <Text>!r^&quot;eù&quot;</Text>
         <Button
-          onPress={disableXYZ ? () => {} : () => {
-            setValueXYZ(resolveXYZ());
-            setDisableXYZ(true);
+          onPress={() => {
+            setModalVisible(true);
           }}
-          title={valueXYZ}
+          title="Afficher"
           color="#006699"
           accessibilityLabel="Answer"
         />
+        <Modal
+          isVisible={isModalVisible}
+          onBackdropPress={() => setModalVisible(false)}
+        >
+          <ClusterMap
+            region={{
+              latitude: 50.634187,
+              longitude: 3.050063,
+              latitudeDelta: 0.00922,
+              longitudeDelta: 0.00421,
+            }}
+          >
+            <Marker coordinate={{ latitude: 50.634187, longitude: 3.050063 }} />
+          </ClusterMap>
+        </Modal>
       </ScrollView>
     </View>
   );
-};
-
-const resolveY = () => {
-};
-
-const resolveZ = () => {
-};
-
-const resolveXYZ = () => {
 };
 
 const styles = StyleSheet.create({
