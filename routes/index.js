@@ -98,7 +98,10 @@ var parser = new DomParser();
     .then(body => {
     var dom = parser.parseFromString(body,'text/html');
     // console.log(dom.getElementById('content').innerHTML);
-    res.send(dom.getElementById('content').innerHTML);})
+    var tosend=dom.getElementById('content').innerHTML
+    
+    res.send(JSON.stringify({ value: tosend }));
+  })
     
 })
   
