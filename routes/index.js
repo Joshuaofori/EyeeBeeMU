@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var Jimp = require("jimp");
+var Jimp = require('jimp');
 var qrCode = require('qrcode-reader');
 var DomParser = require('dom-parser');
 const fetch = require('node-fetch');
@@ -50,8 +50,6 @@ var found='';
  });
 })
 router.get('/decodeimage',function(req,res){
-  
-// That's it, the rest is puppeteer usage as normal 
 puppeteer.launch({ headless: true }).then(async browser => {
   const page = await browser.newPage()
   await page.setViewport({ width: 640, height: 480 ,deviceScaleFactor: 1,})
@@ -89,13 +87,16 @@ res.send(JSON.stringify({ value: value.result }));
       res.send(json);
     });
   })
-
-  // var parser = new DomParser();
-  //  fetch('https://eqrcode.co/a/RL7uJn')
-  //   .then(res => res.text())
-  //   .then(body => {
-  //   var dom = parser.parseFromString(body,'text/html');
-  //   // console.log(dom.getElementById('content').innerHTML);
-  //   res.send(dom.getElementById('content').innerHTML);})
+router.get('/linkvalue',function(req,res){
+var parser = new DomParser();
+   fetch('https://eqrcode.co/a/RL7uJn')
+    .then(res => res.text())
+    .then(body => {
+    var dom = parser.parseFromString(body,'text/html');
+    // console.log(dom.getElementById('content').innerHTML);
+    res.send(dom.getElementById('content').innerHTML);})
     
+})
+  
 module.exports = router;
+  
