@@ -1,20 +1,29 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import {
+  Text, View, StyleSheet, TextInput, ScrollView,
+} from 'react-native';
 import Modal from 'react-native-modal';
 
 const Clues = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>
-        Vous nous avez fait jouer, maintenant à nous !
+        Il semble que l&apos;application propose une &eacute;nigme !
         {'\n'}
-        Tentez de résoudre cette énigme pour parvenir à une petite surprise ;)
+        Saurez-vous la r&eacute;soudre ?
         {'\n'}
       </Text>
-      <Text style={styles.text}>Indice X -&gt; .-- --... ....- -....</Text>
+      <Text style={styles.text}>Indice X :</Text>
+      <Text> .-- --... ....- -....</Text>
+      <TextInput
+        placeholder="Vous pouvez indiquer votre réponse ici"
+      />
+      <Text style={styles.text}>
+        {'\n'}
+        Indice Y :
+      </Text>
       <View style={styles.y_container}>
-        <Text style={styles.text}>Indice Y -&gt; </Text>
         <Text
           style={styles.y_text}
           onLongPress={() => {
@@ -24,7 +33,25 @@ const Clues = () => {
           42
         </Text>
       </View>
-      <Text style={styles.text}>Indice Z -&gt; J3M2+M2 🐦 &apos;X&apos;+&apos;Y&apos; km</Text>
+      <TextInput
+        placeholder="Vous pouvez indiquer votre réponse ici"
+      />
+      <Text style={styles.text}>
+        {'\n'}
+        Indice Z :
+      </Text>
+      <Text>
+        J3M2+M2 🐦 &apos;X&apos;+&apos;Y&apos; km
+      </Text>
+      <TextInput
+        placeholder="Vous pouvez indiquer votre réponse ici"
+      />
+      <Text>
+        {'\n'}
+        Vous pensez avoir trouv&eacute; la solution?
+        {'\n'}
+        Allez vite sur la page &rdquo;Myst&egrave;re&rdquo; pour v&eacute;rifier!
+      </Text>
       <Modal
         style={styles.modal}
         isVisible={isModalVisible}
@@ -37,7 +64,7 @@ const Clues = () => {
           <Text style={styles.text}>MP Paris</Text>
         </View>
       </Modal>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -72,6 +99,7 @@ const styles = StyleSheet.create({
   text: {
     lineHeight: 50,
     fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 

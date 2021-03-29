@@ -23,11 +23,13 @@ const Resolver = () => {
     <View style={styles.container}>
       <ScrollView>
         <Text style={styles.title}>
-          R&eacute;solveur d&apos;&eacute;nigmes IBM GRATUIT
+          R&eacute;solveur d&apos;&eacute;nigmes IBM
+          {'\n'}
+          GRATUIT
           {'\n'}
         </Text>
         <Text style={styles.text}>Indice X : </Text>
-        <Text>
+        <Text style={styles.clue}>
           Trouver le nombre de 6 chiffres se positionnant après la première occurence
           de 036695 dans les décimales de PI.
           {'\n'}
@@ -46,7 +48,7 @@ const Resolver = () => {
         <Text style={styles.text}>
           Indice Y :
         </Text>
-        <Text>https://pasteboard.co/074 065 051 049 084 077 048 046 112 110 103/</Text>
+        <Text style={styles.clue}>https://pasteboard.co/074 065 051 049 084 077 048 046 112 110 103/</Text>
         <Button
           onPress={disableY ? () => {} : async () => {
             setValueY('Chargement ...');
@@ -61,7 +63,7 @@ const Resolver = () => {
         <Text style={styles.text}>
           Indice Z :
         </Text>
-        <Text>&apos;X&apos;+&apos;Y&apos; Lille</Text>
+        <Text style={styles.clue}>&apos;X&apos;+&apos;Y&apos; Lille</Text>
         <Button
           onPress={disableZ ? () => {} : () => {
             setValueZ(resolveZ());
@@ -74,7 +76,7 @@ const Resolver = () => {
         <Text style={styles.text}>
           R&eacute;ponse :
         </Text>
-        <Text>!r^&quot;eù&quot;</Text>
+        <Text style={styles.clue}>!r^&quot;eù&quot;</Text>
         <Button
           onPress={() => {
             setModalVisible(true);
@@ -136,6 +138,12 @@ const styles = StyleSheet.create({
   text: {
     lineHeight: 50,
     fontSize: 20,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+  },
+  clue: {
+    paddingLeft: 20,
+    paddingRight: 20,
   },
 });
 
