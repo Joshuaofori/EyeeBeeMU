@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState, useEffect, useCallback, useRef,
+} from 'react';
 import {
   View, FlatList, RefreshControl, StyleSheet,
 } from 'react-native';
@@ -10,8 +12,8 @@ import SendItem from './SendItem';
 const wait = (timeout) => new Promise((resolve) => setTimeout(resolve, timeout));
 
 const MessagingBox = () => {
+  const flatlistRef = useRef();
   const [messages, setMessages] = useState([]);
-  const [newSessionId, setNewSessionId] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const [sessionId, setSessionId] = useState('');
 
@@ -21,15 +23,16 @@ const MessagingBox = () => {
       setSessionId(data);
     });
   }, []);
+
   if (sessionId) {
     isLoading = false;
   }
 
-  const onRefresh = React.useCallback(() => {
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
-    delSession(newSessionId);
+    delSession(sessionId);
     getSession().then((data) => {
-      setNewSessionId(data);
+      setSessionId(data);
     });
     wait(100).then(() => setRefreshing(false));
   }, []);
@@ -53,10 +56,10 @@ const MessagingBox = () => {
   };
 
   return (
-    <View>
+    <View style={style.main}>
       {isLoading ? (
         <FlatList
-          style={style.message_container}
+          style={style.main_container}
           refreshControl={(
             <RefreshControl
               refreshing
@@ -65,26 +68,22 @@ const MessagingBox = () => {
         />
       )
         : (
-          <View
-            style={style.main_container}
-          >
+          <View style={style.main}>
             <FlatList
-              style={style.message_container}
+              style={style.main_container}
+              ref={flatlistRef}
+              onContentSizeChange={() => flatlistRef.current.scrollToEnd({ animated: true })}
               refreshControl={(
                 <RefreshControl
                   refreshing={refreshing}
                   onRefresh={onRefresh}
                 />
-        )}
+              )}
               data={messages}
               keyExtractor={(item) => String(item.id)}
               renderItem={({ item }) => <MessageItem message={item} />}
             />
-            {newSessionId === '' ? (
-              <SendItem sessionId={sessionId} addMessage={addMessage} />
-            ) : (
-              <SendItem sessionId={newSessionId} addMessage={addMessage} />
-            )}
+            <SendItem style={style.send_item} sessionId={sessionId} addMessage={addMessage} />
           </View>
         )}
 
@@ -93,11 +92,15 @@ const MessagingBox = () => {
 };
 
 const style = StyleSheet.create({
-  message_container: {
-    marginBottom: 40,
+  main: {
+    width: '100%',
+    height: '100%',
   },
   main_container: {
-    bottom: 0,
+    marginBottom: 40,
+  },
+  send_item: {
+    justifyContent: 'flex-end',
   },
 });
 

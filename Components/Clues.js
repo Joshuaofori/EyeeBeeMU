@@ -24,14 +24,14 @@ const Clues = () => {
           42
         </Text>
       </View>
-      <Text style={styles.text}>Indice Z -&gt; J3M2+M2 🐦 `X`+`Y` km</Text>
+      <Text style={styles.text}>Indice Z -&gt; J3M2+M2 🐦 &apos;X&apos;+&apos;Y&apos; km</Text>
       <Modal
         style={styles.modal}
         isVisible={isModalVisible}
         onBackdropPress={() => setModalVisible(false)}
       >
         <View>
-          <Text style={styles.text}>MP</Text>
+          <Text style={styles.text}>MP Paris</Text>
         </View>
       </Modal>
     </View>
