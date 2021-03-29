@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Text, View, StyleSheet, Button, ScrollView,
 } from 'react-native';
 import { Marker } from 'react-native-maps';
 import { ClusterMap } from 'react-native-cluster-map';
 import Modal from 'react-native-modal';
-import { getPiNumber } from '../API';
 import {
   resolveX, resolveY, resolveZ,
 } from '../algorithm/Algorithm';
@@ -18,15 +17,7 @@ const Resolver = () => {
   const [valueZ, setValueZ] = useState('Résoudre Z');
   const [disableZ, setDisableZ] = useState(false);
 
-  const [nextDecimals, setNextDecimals] = useState(0);
-
   const [isModalVisible, setModalVisible] = useState(false);
-
-  useEffect(() => {
-    getPiNumber('036695').then((data) => {
-      setNextDecimals(data);
-    });
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -43,8 +34,9 @@ const Resolver = () => {
           Convertir ce nombre de la base10 en base26
         </Text>
         <Button
-          onPress={disableX ? () => {} : () => {
-            setValueX(resolveX(nextDecimals));
+          onPress={disableX ? () => {} : async () => {
+            const value = await resolveX();
+            setValueX(value);
             setDisableX(true);
           }}
           title={valueX}
@@ -56,8 +48,10 @@ const Resolver = () => {
         </Text>
         <Text>https://pasteboard.co/074 065 051 049 084 077 048 046 112 110 103/</Text>
         <Button
-          onPress={disableY ? () => {} : () => {
-            setValueY(resolveY());
+          onPress={disableY ? () => {} : async () => {
+            setValueY('Chargement ...');
+            const value = await resolveY();
+            setValueY(value);
             setDisableY(true);
           }}
           title={valueY}
@@ -92,6 +86,9 @@ const Resolver = () => {
         <Modal
           isVisible={isModalVisible}
           onBackdropPress={() => setModalVisible(false)}
+          animationIn="fadeIn"
+          animationOut="fadeOut"
+          onBackButtonPress={() => setModalVisible(false)}
         >
           <ClusterMap
             region={{
