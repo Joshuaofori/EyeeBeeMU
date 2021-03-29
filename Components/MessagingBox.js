@@ -2,7 +2,7 @@ import React, {
   useState, useEffect, useCallback, useRef,
 } from 'react';
 import {
-  View, FlatList, RefreshControl, StyleSheet,
+  View, FlatList, RefreshControl, StyleSheet, ToastAndroid,
 } from 'react-native';
 import moment from 'moment';
 import MessageItem from './MessageItem';
@@ -34,6 +34,7 @@ const MessagingBox = () => {
     getSession().then((data) => {
       setSessionId(data);
     });
+    ToastAndroid.show('Nouvelle session créée', ToastAndroid.SHORT);
     wait(100).then(() => setRefreshing(false));
   }, []);
 
