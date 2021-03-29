@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -20,7 +19,6 @@ export default function App() {
         {Algorithm.covertToAscii('https://pasteboard.co/074 065 051 049 084 077 048 046 112 110 103/')}
         {Algorithm.findPassword(336546, 'https://eqrcode.co/a/RL7uJn')} */}
       </Text>
-      <StatusBar style={{ float: 'auto' }} />
     </View>
   );
 }
