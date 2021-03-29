@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
+var DomParser = require('dom-parser');
 const fetch = require('node-fetch');
+const puppeteer = require('puppeteer');
 
 
 /* GET home page. */
@@ -12,7 +14,7 @@ router.get('/pinumber', function(req, res, next) {
   var search = req.query.searchnext;
   console.log(search);
   
-  var readStream = fs.createReadStream('./files/pi_10_millions.txt','utf8');//{ start: 10000, end: 10178 }
+  var readStream = fs.createReadStream('./files/pi_10_millions.txt','utf8');
   readStream.on('open',function(){
     //  readStream.pipe(res);
   });//10138
@@ -36,7 +38,36 @@ var found='';
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ value: number }));
  });
-  
 })
-
+router.get('/decodeimage',function(req,res){
+  var parser = new DomParser();
+  (async () => {
+    const browser = await puppeteer.launch({headless: true,
+      args: [
+        '--disable-extensions-except=/path/to/manifest/folder/',
+        '--load-extension=/path/to/manifest/folder/',
+      ]});
+    const page = await browser.newPage();
+    await page.goto('https://pasteboard.co/JA31TM0.png');
+    await page.screenshot({ path: './files/image.png' });
+  
+    await browser.close();
+    await fetch('https://eqrcode.co/a/RL7uJn')
+    .then(res => res.text())
+    .then(body => {
+    var dom = parser.parseFromString(body,'text/html');
+    // console.log(dom.getElementById('content').innerHTML);
+    res.send(dom.getElementById('content').innerHTML);
+  });
+  })(); 
+  });
+   
+  router.get('/location',function(req,res){
+    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=J3M2+M2 Lille&key=AIzaSyAEY0HpBjXSB0Etk2MQdrz4HgE2UyDKATY')
+    .then(res => res.json())
+    .then(json => {
+      res.send(json);
+    });
+  })
+    
 module.exports = router;

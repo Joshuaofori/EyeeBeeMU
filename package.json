@@ -8,11 +8,14 @@
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dom-parser": "^0.1.6",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "puppeteer": "^8.0.0",
+    "request": "^2.88.2"
   },
   "engines": {
     "node": "14.16.0"
