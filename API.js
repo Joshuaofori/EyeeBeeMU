@@ -69,3 +69,39 @@ export const getPiNumber = async (piDecimals) => {
   }
   return false;
 };
+
+export const getQRCodeUrl = async (link) => {
+  try {
+    const resp = await fetch(
+      `${heroku}/decodeimage/?url=${link}`,
+    );
+    const json = await resp.json();
+    return json.value;
+  } catch (error) {
+    console.error(error);
+  }
+  return false;
+};
+
+export const getLinkValue = async (link) => {
+  try {
+    const resp = await fetch(
+      `${heroku}/linkvalue/?url=${link}`,
+    );
+    const json = await resp.json();
+    const value = JSON.stringify(json).replace('"value":"', '').replace('\\', '').replace('n\\', '')
+      .replace('t\\', '')
+      .replace('t', '')
+      .replace('{', '')
+      .replace('<p class=\\', '')
+      .replace('"item center\\', '')
+      .replace('">', '')
+      .replace('</p>\\', '')
+      .replace('n\\', '')
+      .replace('t"}', '');
+    return value;
+  } catch (error) {
+    console.error(error);
+  }
+  return false;
+};

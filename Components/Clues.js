@@ -55,7 +55,10 @@ const Clues = () => {
       <Modal
         style={styles.modal}
         isVisible={isModalVisible}
+        animationIn="fadeIn"
+        animationOut="fadeOut"
         onBackdropPress={() => setModalVisible(false)}
+        onBackButtonPress={() => setModalVisible(false)}
       >
         <View>
           <Text style={styles.text}>MP Paris</Text>
