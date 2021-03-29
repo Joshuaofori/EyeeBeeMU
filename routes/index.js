@@ -63,7 +63,7 @@ router.get('/decodeimage',function(req,res){
   });
    
   router.get('/location',function(req,res){
-    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=J3M2+M2 Lille&key=AIzaSyAEY0HpBjXSB0Etk2MQdrz4HgE2UyDKATY')
+    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=J3M2+M2 Lille&key=KEY')
     .then(res => res.json())
     .then(json => {
       res.send(json);
