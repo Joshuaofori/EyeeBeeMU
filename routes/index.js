@@ -52,7 +52,7 @@ router.get('/decodeimage',function(req,res){
   url = req.query.url;
 puppeteer.launch({ headless: true }).then(async browser => {
   const page = await browser.newPage()
-  await page.setViewport({ width: 640, height: 480 ,deviceScaleFactor: 1,})
+  await page.setViewport({ width: 260, height: 340 ,deviceScaleFactor: 1,})
   await page.goto(url)
   await page.screenshot({ path: './files/image.png', fullPage: false })
   console.log(`All done, check the screenshots.`)
