@@ -6,9 +6,13 @@ import { getPiNumber } from '../API';
 
 const Resolver = () => {
   const [valueX, setValueX] = useState('Résoudre X');
+  const [disableX, setDisableX] = useState(false);
   const [valueY, setValueY] = useState('Résoudre Y');
+  const [disableY, setDisableY] = useState(true);
   const [valueZ, setValueZ] = useState('Résoudre Z');
+  const [disableZ, setDisableZ] = useState(true);
   const [valueXYZ, setValueXYZ] = useState('Afficher');
+  const [disableXYZ, setDisableXYZ] = useState(true);
   const [nextDecimals, setNextDecimals] = useState(0);
 
   useEffect(() => {
@@ -32,7 +36,10 @@ const Resolver = () => {
           Convertir ce nombre de la base10 en base26
         </Text>
         <Button
-          onPress={() => { setValueX(resolveX(nextDecimals)); }}
+          onPress={disableX ? () => {} : () => {
+            setValueX(resolveX(nextDecimals));
+            setDisableX(true);
+          }}
           title={valueX}
           color="#006699"
           accessibilityLabel="Resolve X"
@@ -42,7 +49,10 @@ const Resolver = () => {
         </Text>
         <Text>https://pasteboard.co/074 065 051 049 084 077 048 046 112 110 103/</Text>
         <Button
-          onPress={() => { setValueY(resolveY()); }}
+          onPress={disableY ? () => {} : () => {
+            setValueY(resolveY());
+            setDisableY(true);
+          }}
           title={valueY}
           color="#006699"
           accessibilityLabel="Resolve Y"
@@ -52,7 +62,10 @@ const Resolver = () => {
         </Text>
         <Text>&apos;X&apos;+&apos;Y&apos; Lille</Text>
         <Button
-          onPress={() => { setValueZ(resolveZ()); }}
+          onPress={disableZ ? () => {} : () => {
+            setValueZ(resolveZ());
+            setDisableZ(true);
+          }}
           title={valueZ}
           color="#006699"
           accessibilityLabel="Resolve Z"
@@ -62,7 +75,10 @@ const Resolver = () => {
         </Text>
         <Text>!r^&quot;eù&quot;</Text>
         <Button
-          onPress={() => { setValueXYZ(resolveXYZ()); }}
+          onPress={disableXYZ ? () => {} : () => {
+            setValueXYZ(resolveXYZ());
+            setDisableXYZ(true);
+          }}
           title={valueXYZ}
           color="#006699"
           accessibilityLabel="Answer"
